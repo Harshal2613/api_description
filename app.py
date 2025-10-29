@@ -1,12 +1,13 @@
 from flask import Flask, jsonify
 import pandas as pd
+import os
 
 app = Flask(__name__)
 
-# Load your CSV file
-data = pd.read_csv(r"C:\Users\harsh\OneDrive\Desktop\Infosys\StaticData\DescriptionDataCoSupplyChain.csv")
+# ✅ Load CSV from same folder as app.py
+csv_path = os.path.join(os.path.dirname(__file__), "DescriptionDataCoSupplyChain.csv")
+data = pd.read_csv(csv_path)
 
-# Show all CSV data directly on home route
 @app.route('/', methods=['GET'])
 def get_data():
     return jsonify(data.to_dict(orient='records'))
